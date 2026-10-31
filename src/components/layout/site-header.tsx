@@ -37,11 +37,17 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  // The home page opens on a full-bleed image: keep a light, transparent header until scrolled.
+  const overImage = pathname === "/" && !scrolled && !open;
+  // Split-screen pages have no clean area for a transparent bar, so start solid.
+  const solid = (scrolled || pathname === "/chi-sono") && !open;
+
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500",
-        scrolled && !open
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color,color] duration-500",
+        overImage && "text-white",
+        solid
           ? "border-b border-border/60 bg-background/75 backdrop-blur-md"
           : "border-b border-transparent bg-transparent"
       )}
@@ -74,7 +80,12 @@ export function SiteHeader() {
         <Link
           href="/"
           aria-label={`${site.name}, home`}
-          className="col-start-1 justify-self-start md:col-start-2 md:justify-self-center"
+          className={cn(
+            "col-start-1 justify-self-start transition-opacity duration-500 md:col-start-2 md:justify-self-center",
+            // On the home hero the large centred logo is already visible.
+            overImage && "pointer-events-none opacity-0"
+          )}
+          tabIndex={overImage ? -1 : undefined}
         >
           <Logo variant="wordmark" className="w-[150px] md:w-[200px]" />
         </Link>
