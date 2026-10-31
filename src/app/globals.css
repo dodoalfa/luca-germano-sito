@@ -14,6 +14,11 @@
   --primary-foreground: #f7f6f3;
   --ring: #121212;
   --radius: 0rem;
+  /* Studio lighting */
+  --studio-key: rgb(255 255 255 / 0.9);
+  --studio-rim: rgb(255 255 255 / 0.5);
+  --studio-shadow: rgb(40 32 24 / 0.16);
+  --studio-cast: rgb(40 32 24 / 0.28);
 }
 
 /* Dark theme (default): deep charcoal */
@@ -26,6 +31,10 @@
   --primary: #ededeb;
   --primary-foreground: #0a0a0a;
   --ring: #ededeb;
+  --studio-key: rgb(255 244 228 / 0.22);
+  --studio-rim: rgb(255 244 228 / 0.05);
+  --studio-shadow: rgb(0 0 0 / 0.55);
+  --studio-cast: rgb(0 0 0 / 0.9);
 }
 
 @theme inline {
@@ -79,6 +88,11 @@
 }
 
 @layer components {
+  /* Fine film grain for the studio-light sections */
+  .studio-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   /* Small, wide-tracked uppercase label used for nav, captions and kickers */
   .eyebrow {
     @apply text-[11px] font-medium uppercase tracking-[0.22em];
