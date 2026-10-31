@@ -34,3 +34,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Pubblicazione su Cloudflare
+
+Il sito gira su Cloudflare Workers tramite [OpenNext](https://opennext.js.org/cloudflare).
+
+| Comando | Cosa fa |
+| --- | --- |
+| `npm run dev` | sviluppo locale con Next.js |
+| `npm run preview` | build Cloudflare e anteprima locale sul runtime Workers |
+| `npm run deploy` | build e pubblicazione in produzione |
+| `npm run upload` | build e caricamento di una versione di anteprima |
+
+Collegamento automatico (Workers Builds) dal pannello Cloudflare:
+
+- Build command: `npx opennextjs-cloudflare build`
+- Deploy command: `npx opennextjs-cloudflare deploy`
+- Non-production branch deploy command: `npx opennextjs-cloudflare upload`
+
+Variabili d'ambiente per il modulo contatti (Settings → Variables and Secrets): `RESEND_API_KEY` (segreto), `CONTACT_FROM`, `CONTACT_TO`. Vedi `.env.example`.
+
+Foto: metti i file in `public/foto/<categoria>/` e lancia `npm run photos`.
