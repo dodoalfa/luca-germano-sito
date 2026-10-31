@@ -62,6 +62,7 @@ const jsonLd = {
   "@type": "ProfessionalService",
   name: site.title,
   url: site.url,
+  logo: `${site.url}/logo/luca-germano-logo-originale.png`,
   email: site.email,
   telephone: site.phone,
   address: {

@@ -2,12 +2,14 @@ import Link from "next/link";
 
 import { navigation, site } from "@/lib/site";
 import { CurrentYear } from "./current-year";
+import { Logo } from "@/components/logo";
 
 export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-border/60">
       <div className="mx-auto grid max-w-[1600px] gap-10 px-5 py-14 md:grid-cols-12 md:px-10 md:py-20">
         <div className="md:col-span-5">
+          <Logo variant="full" className="mb-10 w-[180px] opacity-90" />
           <p className="font-serif text-3xl leading-tight tracking-tight md:text-4xl">
             Raccontiamo insieme
             <br />

@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { navigation, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Logo } from "@/components/logo";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -75,9 +76,7 @@ export function SiteHeader() {
           aria-label={`${site.name}, home`}
           className="col-start-1 justify-self-start md:col-start-2 md:justify-self-center"
         >
-          <span className="font-serif text-xl tracking-tight md:text-2xl">
-            Luca <span className="italic">Germano</span>
-          </span>
+          <Logo variant="wordmark" className="w-[150px] md:w-[200px]" />
         </Link>
 
         {/* Right: utilities */}
