@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import { HeroSlider } from "@/components/home/hero-slider";
 import { Reveal } from "@/components/motion/reveal";
+import { ReviewsSection } from "@/components/reviews/reviews-section";
 import { Button } from "@/components/ui/button";
 import { getCategoryCovers, getHeroPhotos } from "@/lib/portfolio";
 import { site } from "@/lib/site";
@@ -104,6 +105,8 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      <ReviewsSection />
     </>
   );
 }
