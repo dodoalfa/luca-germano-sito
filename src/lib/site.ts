@@ -15,6 +15,15 @@ export const site = {
     instagram: "https://www.instagram.com/lucagermanofotografo",
     facebook: "https://www.facebook.com/lucagermanofotografo",
   },
+  /**
+   * Voto Google mostrato nell'header finché la Places API non è configurata.
+   * Copiare i valori dalla scheda di Luca su Google Maps (lasciare null per nasconderlo).
+   */
+  google: {
+    rating: null as number | null,
+    reviews: null as number | null,
+    url: null as string | null,
+  },
 } as const;
 
 export const navigation = [

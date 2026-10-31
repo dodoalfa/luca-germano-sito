@@ -1,4 +1,5 @@
 import { localReviews } from "@/data/recensioni";
+import { site } from "@/lib/site";
 
 export type Review = {
   author: string;
@@ -87,7 +88,17 @@ export async function getReviews(): Promise<ReviewsData> {
     (await getGoogleReviews()) ?? {
       source: "sito",
       reviews: localReviews,
-      url: process.env.GOOGLE_REVIEWS_URL || undefined,
+      rating: site.google.rating ?? undefined,
+      total: site.google.reviews ?? undefined,
+      url: site.google.url ?? (process.env.GOOGLE_REVIEWS_URL || undefined),
     }
   );
+}
+
+export type RatingSummary = { rating: number; total?: number; url?: string };
+
+/** Voto medio Google per l'header, se disponibile. */
+export async function getRatingSummary(): Promise<RatingSummary | null> {
+  const { rating, total, url } = await getReviews();
+  return rating ? { rating, total, url } : null;
 }
