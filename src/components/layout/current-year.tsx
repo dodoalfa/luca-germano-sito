@@ -1,9 +1,5 @@
-import { cacheLife } from "next/cache";
-
-// Cached server value: prerenders statically and refreshes daily, so the
-// footer year rolls over without a redeploy.
-export async function CurrentYear() {
-  "use cache";
-  cacheLife("days");
-  return <>{new Date().getFullYear()}</>;
+// Year of the last build: the site is redeployed far more often than once a
+// year, and this avoids a runtime cache entry just for the footer.
+export function CurrentYear() {
+  return <>{process.env.NEXT_PUBLIC_BUILD_YEAR}</>;
 }

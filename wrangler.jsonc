@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "luca-germano-sito",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // Keep esbuild from injecting __name() into functions that next-themes
+  // serialises into an inline <script> (otherwise: "__name is not defined").
+  "keep_names": false,
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      // Self-reference, must match the worker name above
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "luca-germano-sito"
+    }
+  ],
+  // Image optimization for next/image through Cloudflare Images
+  "images": {
+    "binding": "IMAGES"
+  },
+  // One preview URL per uploaded version / branch
+  "preview_urls": true,
+  "observability": {
+    "enabled": true
+  }
+}
