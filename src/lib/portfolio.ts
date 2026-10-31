@@ -82,3 +82,19 @@ export function getPhotos(category?: string): Photo[] {
 export function categoryLabel(slug: string) {
   return labelBySlug[slug] ?? slug;
 }
+
+/** Landscape photos for the full-bleed hero, featured first, mixed across categories. */
+export function getHeroPhotos(limit = 5): Photo[] {
+  return getPhotos()
+    .filter((p) => p.width > p.height)
+    .sort((a, b) => Number(b.featured) - Number(a.featured))
+    .slice(0, limit);
+}
+
+/** One representative photo per category, for the home page category index. */
+export function getCategoryCovers() {
+  return categories.map((c) => {
+    const list = getPhotos(c.slug);
+    return { ...c, cover: list.find((p) => p.featured) ?? list[0] };
+  });
+}
