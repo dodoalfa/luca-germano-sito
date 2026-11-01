@@ -13,6 +13,20 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "www.lucagermano.it", pathname: "/wp-content/uploads/**" },
     ],
   },
+  // Old WordPress addresses (lucagermano.it) → new pages, so links already
+  // indexed by Google and shared online keep working after the switch.
+  async redirects() {
+    const to = (destination: string, ...sources: string[]) =>
+      sources.map((source) => ({ source, destination, permanent: true }));
+    return [
+      ...to("/portfolio", "/i-miei-lavori"),
+      ...to("/portfolio/matrimoni", "/galleries/matrimoni", "/i-miei-lavori/matrimoni-gli-sposi", "/i-miei-lavori/album-di-nozze"),
+      ...to("/portfolio/newborn-maternita", "/galleries/maternita", "/galleries/newborn", "/galleries/smah-cake"),
+      ...to("/portfolio/eventi", "/galleries/san-valentino", "/galleries/natale"),
+      ...to("/servizi", "/fotografo-matrimoni", "/newborn-e-maternita", "/cerimonie-e-ricorrenze", "/eventi-tematici", "/ritratti"),
+      ...to("/", "/blog", "/blog/:path*", "/category/:path*"),
+    ];
+  },
   turbopack: {
     rules: {
       "*.css": {
