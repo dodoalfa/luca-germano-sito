@@ -24,6 +24,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Nessuna email di prova a destinatari reali: i test usano risposte simulate.
 - Usare soltanto fotografie reali. I 28 segnaposto iniziali sono archiviati fuori da public; le categorie senza foto non appaiono nei filtri del portfolio.
 - L’anteprima usa wrangler.preview.jsonc e scripts/preview-worker.mjs; mantenere noindex e robots Disallow. Non sostituire il sito sul dominio lucagermano.it senza istruzioni.
+- URL di riferimento: https://luca-germano-portfolio.officinacardo.workers.dev/. Aggiornare il Worker luca-germano-portfolio. Il precedente Worker luca-germano-anteprima-6f21 non è quello usato dal cliente.
 - Tenere generico il riferimento alla formazione, senza citare scuole o incarichi attuali non confermati.
 
 ## Registro modifiche
@@ -32,3 +33,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 |---|---|---|---|
 | 2026-11-01 | Codex | Progetto consolidato; catalogo foto, portfolio, moduli, configurazione anteprima | Recuperate le foto uniche dalle due copie, archiviati i segnaposto, predisposto Formspree con invio disattivato e percorso unico di lavoro. |
 | 2026-11-01 | Codex | tests/contact.test.mjs; scripts/preview-worker.mjs; wrangler.preview.jsonc; documentazione | Passati 11 test simulati e controlli online sulle 12 pagine. Pubblicata la stessa anteprima con 29 foto reali e modulo esplicitamente inattivo; nessun invio reale. Residui della vecchia posizione conservati con avviso perché bloccati da Windows. |
+| 2026-11-01 | Codex | AGENTS.md (registro); ZIP di ripristino in D:\Progetti | Preparata copia aggiornata di sorgenti, configurazione e foto per il ripristino; esclusi dipendenze, build, credenziali e copie precedenti. Invio moduli sempre disattivato. |
+| 2026-11-01 | Codex | AGENTS.md (registro); pubblicazione anteprima | Ripristinata su Cloudflare la versione aggiornata tramite deploy:preview dopo il tentativo di upload manuale dello ZIP sorgente; verificati home, portfolio, contatti e immagini. Modulo sempre inattivo. |
+| 2026-11-01 | Codex | ZIP statico luca-germano-CARICA-SU-CLOUDFLARE.zip in Download | Generata una copia statica già compilata per upload manuale, con index.html alla radice, 163 file, foto e animazioni; modulo inattivo e anteprima non indicizzabile. Progetto principale invariato. |
+| 2026-11-01 | Codex | src/app/servizi/page.tsx | Inserita una fotografia reale selezionata accanto a ciascuno dei cinque servizi, con taglio 4:5, animazione e disposizione responsive. Verificati pagina locale e controllo TypeScript; nessuna pubblicazione o attivazione moduli. |
+| 2026-11-01 | Codex | pagina Servizi; SectionContactCta; StoryPaths | Ridotta la fascia vuota dopo Come lavoro tramite spaziatura compatta attivata solo nella pagina Servizi. Verificati TypeScript e pagina locale; nessuna pubblicazione. |
+| 2026-11-01 | Codex | Pubblicazione anteprima Cloudflare | Pubblicati le cinque fotografie nei servizi e gli spazi compatti tra le sezioni. Compilazione riuscita; verificati online pagina, cinque immagini e home. Invio moduli ancora disattivato e anteprima non indicizzabile. |
+
+| 2026-11-01 | Codex | wrangler.preview.jsonc; AGENTS.md; README.md | Corretto il Worker di destinazione in luca-germano-portfolio, confermato dal link utente. Pubblicate e verificate online cinque foto dei servizi e spaziatura; modulo ancora inattivo. |

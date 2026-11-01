@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "luca-germano-anteprima-6f21",
+  "name": "luca-germano-portfolio",
   "main": "scripts/preview-worker.mjs",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
@@ -8,7 +8,7 @@
   "workers_dev": true,
   "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
   "services": [
-    { "binding": "WORKER_SELF_REFERENCE", "service": "luca-germano-anteprima-6f21" }
+    { "binding": "WORKER_SELF_REFERENCE", "service": "luca-germano-portfolio" }
   ],
   "images": { "binding": "IMAGES" },
   "observability": { "enabled": true }

@@ -6,10 +6,10 @@ const chapters = [
   { number: "01", title: "Il giorno che scegliete insieme.", text: "L'attesa, la cerimonia, la festa. E quei piccoli gesti che tengono insieme il racconto del vostro matrimonio.", href: "/fotografo-matrimonio-fano", link: "Il vostro matrimonio" },
   { number: "02", title: "La famiglia, mentre cambia.", text: "Un battesimo, un anniversario, un ritratto insieme. Le occasioni passano; le immagini danno una forma ai ricordi.", href: "/fotografo-famiglia-fano", link: "I vostri legami" },
 ];
-export function StoryPaths() {
+export function StoryPaths({ compact = false }: { compact?: boolean } = {}) {
   return (
     <section className="border-t border-border/60">
-      <div className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 md:py-36">
+      <div className={"mx-auto max-w-[1600px] px-5 md:px-10 " + (compact ? "py-12 md:py-16" : "py-24 md:py-36")}>
         <p className="eyebrow mb-6 text-muted-foreground">Il prossimo capitolo</p>
         <h2 className="max-w-3xl text-4xl font-light leading-tight md:text-6xl">Quale momento vuoi <span className="italic">portare con te?</span></h2>
         <div className="mt-16 grid gap-12 md:grid-cols-2 md:gap-20">

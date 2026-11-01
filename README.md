@@ -74,3 +74,5 @@ Verifiche senza email reali: npm run test:contact.
 Build anteprima: npm run build:preview.
 Pubblicazione anteprima: npm run deploy:preview.
 L’anteprima resta separata dal sito definitivo e non indicizzabile.
+
+Anteprima di riferimento: https://luca-germano-portfolio.officinacardo.workers.dev/. npm run deploy:preview aggiorna questo Worker. Il precedente indirizzo con anteprima-6f21 non è il riferimento per le nuove modifiche.
