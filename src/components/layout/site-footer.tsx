@@ -33,6 +33,8 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li><Link href="/fotografo-matrimonio-fano" className="transition-opacity hover:opacity-60">Matrimoni a Fano</Link></li>
+            <li><Link href="/fotografo-famiglia-fano" className="transition-opacity hover:opacity-60">Famiglie a Fano</Link></li>
           </ul>
         </nav>
 
@@ -43,7 +45,7 @@ export function SiteFooter() {
             <li><a href={site.phoneHref} className="transition-opacity hover:opacity-60">{site.phone}</a></li>
             <li><a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-60">Instagram</a></li>
             <li><a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-60">Facebook</a></li>
-            <li className="text-muted-foreground">{site.location}</li>
+            <li><a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">{site.address.full}</a></li>
           </ul>
         </address>
       </div>

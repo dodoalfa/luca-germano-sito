@@ -1,4 +1,4 @@
-# Variabili per `npm run preview` in locale (copia in .dev.vars)
-RESEND_API_KEY=
-CONTACT_FROM=
-CONTACT_TO=
+# Variabili per npm run preview in locale (copia in .dev.vars).
+# Formspree dedicato a Luca: compilare soltanto dopo la revisione.
+# L'invio resta disattivato da site.contactForm.enabled in src/lib/site.ts.
+FORMSPREE_FORM_ID=

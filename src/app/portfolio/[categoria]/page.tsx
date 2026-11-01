@@ -17,6 +17,7 @@ export async function generateMetadata({
   return {
     title: category.title,
     description: category.description,
+    robots: getPhotos(category.slug).length ? undefined : { index: false, follow: true },
     alternates: { canonical: `/portfolio/${category.slug}` },
   };
 }

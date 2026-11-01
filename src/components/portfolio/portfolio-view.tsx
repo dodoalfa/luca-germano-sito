@@ -1,3 +1,4 @@
+import { SectionContactCta } from "@/components/contact/section-contact-cta";
 import { CategoryNav } from "./category-nav";
 import { MasonryGrid } from "./masonry-grid";
 import type { Photo } from "@/lib/portfolio";
@@ -27,7 +28,15 @@ export function PortfolioView({ eyebrow, title, intro, photos, showCategory }: P
         <CategoryNav />
       </div>
 
-      <MasonryGrid photos={photos} showCategory={showCategory} />
+      {photos.length > 0 ? (
+        <>
+          <SectionContactCta title="Quale storia vorresti raccontare?" label="Parlami del tuo servizio" />
+          <MasonryGrid photos={photos} showCategory={showCategory} />
+          <SectionContactCta title="Il prossimo ricordo potrebbe essere il tuo." text="Raccontami la tua occasione, la data e il luogo." label="Scrivimi per un preventivo" />
+        </>
+      ) : (
+        <SectionContactCta title="Partiamo dalla tua idea." text="Parlami dell’occasione, delle persone e di ciò che desideri ricordare: definiamo insieme il tuo servizio fotografico." label="Parliamone insieme" />
+      )}
     </div>
   );
 }

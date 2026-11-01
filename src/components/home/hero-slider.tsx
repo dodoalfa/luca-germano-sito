@@ -6,9 +6,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 import type { Photo } from "@/lib/portfolio";
 import { Logo } from "@/components/logo";
-import { site } from "@/lib/site";
 
-const INTERVAL = 6500;
+const INTERVAL = 5000;
 
 export function HeroSlider({ photos }: { photos: Photo[] }) {
   const [index, setIndex] = useState(0);
@@ -45,13 +44,13 @@ export function HeroSlider({ photos }: { photos: Photo[] }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.6, ease: "easeInOut" }}
+          transition={{ duration: reduce ? 0 : 1.2, ease: "easeInOut" }}
         >
           <motion.div
             className="absolute inset-0"
             initial={{ scale: reduce ? 1 : 1.08 }}
             animate={{ scale: 1 }}
-            transition={{ duration: INTERVAL / 1000 + 1.6, ease: "linear" }}
+            transition={{ duration: INTERVAL / 1000 + 1.2, ease: "linear" }}
           >
             <Image
               src={photo.src}
@@ -76,7 +75,7 @@ export function HeroSlider({ photos }: { photos: Photo[] }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         >
-          <h1 className="sr-only">{site.title}: fotografo di matrimoni, newborn e ritratti a Fano</h1>
+
           <Logo variant="full" className="w-[240px] sm:w-[340px] md:w-[440px]" />
         </motion.div>
         <motion.p
@@ -85,14 +84,16 @@ export function HeroSlider({ photos }: { photos: Photo[] }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.4, delay: 0.7 }}
         >
-          Matrimoni · Newborn · Ritratti · {site.location.split(" ")[0]}
+          Fotografo a Fano · Matrimoni · Famiglia · Newborn
         </motion.p>
+        <h1 className="mt-6 max-w-3xl font-serif text-3xl font-light leading-tight sm:text-4xl md:text-5xl">Le vostre emozioni,<br /><span className="italic">una storia da rivivere.</span></h1>
+        <a href="#scrivimi" className="eyebrow mt-8 border-b border-white/70 pb-2 transition-opacity hover:opacity-70">Raccontami il tuo momento</a>
       </div>
 
       {/* Slide indicators with progress */}
       {count > 1 && (
         <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between px-5 pb-6 md:px-10 md:pb-10">
-          <div className="flex gap-2" role="tablist" aria-label="Scegli immagine">
+          <div className="flex gap-1.5" role="tablist" aria-label="Scegli immagine">
             {photos.map((p, i) => (
               <button
                 key={p.id}
@@ -101,7 +102,7 @@ export function HeroSlider({ photos }: { photos: Photo[] }) {
                 aria-selected={i === index}
                 aria-label={`Immagine ${i + 1} di ${count}`}
                 onClick={() => setIndex(i)}
-                className="group relative h-6 w-8 md:w-12"
+                className="group relative h-6 w-4 sm:w-6 md:w-8"
               >
                 <span className="absolute inset-x-0 top-1/2 h-px bg-white/30" />
                 {i === index && (

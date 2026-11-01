@@ -34,7 +34,7 @@ for (const category of categories) {
   for (const file of files) {
     const abs = path.join(dir, file);
     const img = sharp(abs).rotate();
-    const { width, height } = await img.metadata();
+    const { width, height } = (await img.metadata()).autoOrient;
     const blur = await img.clone().resize(16).blur().jpeg({ quality: 50 }).toBuffer();
     const meta = info[file] ?? {};
     photos.push({

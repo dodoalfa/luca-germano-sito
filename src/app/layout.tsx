@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Fraunces } from "next/font/google";
 
+import { ContactSection } from "@/components/contact/contact-section";
+import { StudioLight } from "@/components/motion/studio-light";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/layout/site-header";
 import { getRatingSummary } from "@/lib/reviews";
@@ -34,7 +36,6 @@ export const metadata: Metadata = {
     "fotografo matrimonio Marche",
     "fotografo newborn Fano",
     "servizio maternità",
-    "fotografo Pesaro",
     "reportage matrimonio",
   ],
   authors: [{ name: site.name }],
@@ -61,6 +62,7 @@ export const viewport: Viewport = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
+  "@id": site.url + "/#attivita",
   name: site.title,
   url: site.url,
   logo: `${site.url}/logo/luca-germano-logo-originale.png`,
@@ -68,12 +70,14 @@ const jsonLd = {
   telephone: site.phone,
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Fano",
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
     postalCode: "61032",
     addressRegion: "PU",
     addressCountry: "IT",
   },
-  areaServed: ["Fano", "Pesaro", "Marche"],
+  areaServed: ["Fano"],
+  hasMap: site.mapsUrl,
   sameAs: [site.social.instagram, site.social.facebook],
 };
 
@@ -93,9 +97,11 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           >
             Vai al contenuto
           </a>
+          <StudioLight viewport className="fixed inset-0 z-20 opacity-60 [mask-image:none]" />
           <SiteHeader rating={rating} />
           <main id="contenuto" className="flex flex-1 flex-col">
             {children}
+            <ContactSection />
           </main>
           <SiteFooter />
         </ThemeProvider>

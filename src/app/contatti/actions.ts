@@ -1,6 +1,7 @@
 "use server";
 
 import { site } from "@/lib/site";
+import { deliverContact } from "@/lib/contact-delivery";
 
 export type ContactState = {
   status: "idle" | "success" | "error";
@@ -11,10 +12,6 @@ export type ContactState = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-function escapeHtml(s: string) {
-  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
-}
-
 export async function sendContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
   const get = (k: string) => String(formData.get(k) ?? "").trim();
   const values = {
@@ -24,6 +21,14 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
     servizio: get("servizio"),
     messaggio: get("messaggio"),
   };
+
+  if (!site.contactForm.enabled) {
+    return {
+      status: "error",
+      message: "Il modulo è in anteprima: la richiesta non viene inviata.",
+      values,
+    };
+  }
 
   // Honeypot: real people never fill this hidden field.
   if (get("sito_web")) return { status: "success" };
@@ -38,48 +43,9 @@ export async function sendContact(_prev: ContactState, formData: FormData): Prom
     return { status: "error", message: "Controlla i campi evidenziati.", errors, values };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error("[contatti] RESEND_API_KEY non configurata: messaggio non inviato");
-    return {
-      status: "error",
-      message: `Il modulo non è ancora attivo. Scrivimi direttamente a ${site.email}.`,
-      values,
-    };
+  const result = await deliverContact(values);
+  if (!result.ok) {
+    return { status: "error", message: result.message, values };
   }
-
-  const dataLabel = values.data
-    ? new Date(values.data).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" })
-    : "non indicata";
-
-  const rows = [
-    ["Nome", values.nome],
-    ["Email", values.email],
-    ["Data dell'evento", dataLabel],
-    ["Servizio", values.servizio || "non indicato"],
-  ];
-
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: process.env.CONTACT_FROM ?? "Sito Luca Germano <onboarding@resend.dev>",
-      to: [process.env.CONTACT_TO ?? site.email],
-      reply_to: values.email,
-      subject: `Nuova richiesta dal sito: ${values.nome}`,
-      text: `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\n${values.messaggio}`,
-      html: `${rows.map(([k, v]) => `<p><strong>${k}:</strong> ${escapeHtml(v)}</p>`).join("")}<p>${escapeHtml(values.messaggio).replace(/\n/g, "<br>")}</p>`,
-    }),
-  });
-
-  if (!res.ok) {
-    console.error("[contatti] invio fallito", res.status, await res.text().catch(() => ""));
-    return {
-      status: "error",
-      message: `Qualcosa è andato storto. Riprova tra poco o scrivimi a ${site.email}.`,
-      values,
-    };
-  }
-
   return { status: "success" };
 }

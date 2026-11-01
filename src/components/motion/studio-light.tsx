@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 
 type LightProps = {
   className?: string;
+  viewport?: boolean;
   /** Where the light rests before the pointer moves, in % of the area. */
   rest?: { x: number; y: number };
 };
@@ -25,7 +26,7 @@ type LightProps = {
  * coordinates in %. On touch devices the light drifts slowly on its own, and
  * with reduced motion it stays at rest.
  */
-function useLightPosition(ref: React.RefObject<HTMLElement | null>, rest = { x: 30, y: 30 }) {
+function useLightPosition(ref: React.RefObject<HTMLElement | null>, rest = { x: 30, y: 30 }, viewport = false) {
   const reduce = useReducedMotion();
   const x = useMotionValue(rest.x);
   const y = useMotionValue(rest.y);
@@ -39,13 +40,15 @@ function useLightPosition(ref: React.RefObject<HTMLElement | null>, rest = { x: 
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
       hasPointer.current = true;
-      const r = host.getBoundingClientRect();
+      const r = viewport
+        ? { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight }
+        : host.getBoundingClientRect();
       x.set(((e.clientX - r.left) / r.width) * 100);
       y.set(((e.clientY - r.top) / r.height) * 100);
     };
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => window.removeEventListener("pointermove", onMove);
-  }, [ref, reduce, x, y]);
+  }, [ref, reduce, x, y, viewport]);
 
   // Slow drift when there is no mouse (phones, tablets).
   useAnimationFrame((t) => {
@@ -63,9 +66,9 @@ function useLightPosition(ref: React.RefObject<HTMLElement | null>, rest = { x: 
  * pointer like a softbox, a faint rim light from the top corner, a vignette
  * and film grain. Place inside a `relative` container, behind the content.
  */
-export function StudioLight({ className, rest }: LightProps) {
+export function StudioLight({ className, rest, viewport = false }: LightProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const { x, y } = useLightPosition(ref, rest);
+  const { x, y } = useLightPosition(ref, rest, viewport);
 
   const key = useMotionTemplate`radial-gradient(ellipse 42% 58% at ${x}% ${y}%, var(--studio-key) 0%, transparent 70%)`;
   const shadow = useMotionTemplate`radial-gradient(ellipse 90% 90% at ${x}% ${y}%, transparent 35%, var(--studio-shadow) 100%)`;

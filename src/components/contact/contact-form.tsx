@@ -10,13 +10,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { categories } from "@/lib/portfolio";
+import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const initial: ContactState = { status: "idle" };
 
-export function ContactForm() {
+export function ContactForm({ defaultService }: { defaultService?: string } = {}) {
   const [state, action, pending] = useActionState(sendContact, initial);
   const id = useId();
+  const enabled = site.contactForm.enabled;
   const v = state.values ?? {};
   const err = state.errors ?? {};
 
@@ -36,7 +38,7 @@ export function ContactForm() {
           Grazie, <span className="italic">a presto.</span>
         </h2>
         <p className="mt-4 max-w-md leading-relaxed text-muted-foreground">
-          Ho ricevuto il tuo messaggio e ti risponderò entro 48 ore. Se è urgente, chiamami o scrivimi su WhatsApp.
+          Ho ricevuto il tuo messaggio e ti risponderò appena possibile. Se è urgente, chiamami o scrivimi su WhatsApp.
         </p>
       </motion.div>
     );
@@ -57,7 +59,16 @@ export function ContactForm() {
     ) : null;
 
   return (
-    <form action={action} noValidate className="space-y-10">
+    <form id="modulo-email" aria-labelledby="modulo-email-titolo" tabIndex={-1} action={action} onSubmit={(event) => { if (!enabled) event.preventDefault(); }} noValidate className="scroll-mt-28 space-y-10 focus:outline-none">
+      <div className="border-b border-border/60 pb-6">
+        <h2 id="modulo-email-titolo" className="text-3xl font-light md:text-4xl">Scrivimi via email.</h2>
+        <p className="mt-3 max-w-xl leading-relaxed text-muted-foreground">Compila il modulo con i tuoi recapiti e raccontami che cosa hai in mente. Userò la tua email per risponderti.</p>
+      </div>
+      {!enabled && (
+        <p id="modulo-anteprima" role="note" className="border border-border/70 bg-muted/40 p-4 text-sm leading-relaxed text-muted-foreground">
+          Il modulo è in anteprima: puoi provare i campi, ma la richiesta non viene inviata.
+        </p>
+      )}
       {/* Honeypot, hidden from people and assistive tech */}
       <div aria-hidden className="absolute -left-[9999px] size-px overflow-hidden">
         <label>
@@ -94,7 +105,7 @@ export function ContactForm() {
                   type="radio"
                   name="servizio"
                   value={c.label}
-                  defaultChecked={v.servizio === c.label}
+                  defaultChecked={(v.servizio ?? defaultService) === c.label}
                   className="peer sr-only"
                 />
                 <span className="inline-block border border-border px-3 py-1.5 text-sm text-muted-foreground transition-colors peer-checked:border-foreground peer-checked:bg-foreground peer-checked:text-background peer-focus-visible:ring-2 peer-focus-visible:ring-ring hover:border-foreground/60">
@@ -122,8 +133,8 @@ export function ContactForm() {
         <p className="max-w-sm text-xs leading-relaxed text-muted-foreground">
           Inviando il modulo accetti che i tuoi dati vengano usati solo per rispondere alla tua richiesta.
         </p>
-        <Button type="submit" size="lg" disabled={pending} className="group">
-          {pending ? "Invio in corso..." : "Invia richiesta"}
+        <Button type="submit" size="lg" disabled={pending || !enabled} aria-describedby={!enabled ? "modulo-anteprima" : undefined} className="group max-w-full whitespace-normal text-center">
+          {!enabled ? "Invio non attivo in anteprima" : pending ? "Invio in corso..." : "Invia richiesta via email"}
           <ArrowRight className={cn("transition-transform", !pending && "group-hover:translate-x-1")} strokeWidth={1.5} />
         </Button>
       </div>

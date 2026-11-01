@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
-import { categories } from "@/lib/portfolio";
+import { getAvailableCategories } from "@/lib/portfolio";
 import { cn } from "@/lib/utils";
 
-const items = [{ href: "/portfolio", label: "Tutti" }, ...categories.map((c) => ({ href: `/portfolio/${c.slug}`, label: c.label }))];
+const items = [{ href: "/portfolio", label: "Tutti" }, ...getAvailableCategories().map((c) => ({ href: `/portfolio/${c.slug}`, label: c.label }))];
 
 export function CategoryNav() {
   const pathname = usePathname();

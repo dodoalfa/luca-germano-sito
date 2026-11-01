@@ -1,15 +1,25 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+import { FaqSection } from "@/components/editorial/faq-section";
+import { StoryPaths, StoryInvitation } from "@/components/editorial/story-paths";
+import { generalFaqs } from "@/data/editorial";
+import { SectionContactCta } from "@/components/contact/section-contact-cta";
 import { HeroSlider } from "@/components/home/hero-slider";
 import { Reveal } from "@/components/motion/reveal";
 import { ReviewsSection } from "@/components/reviews/reviews-section";
 import { Button } from "@/components/ui/button";
 import { getCategoryCovers, getHeroPhotos } from "@/lib/portfolio";
 import { site } from "@/lib/site";
-import portrait from "@/assets/luca-germano-ritratto.jpg";
+import portrait from "@/assets/luca-germano-ritratto-reale.png";
 
+export const metadata: Metadata = {
+  title: { absolute: "Luca Germano Fotografo a Fano | Matrimoni e Famiglia" },
+  description: "Fotografo a Fano per matrimoni, famiglie, battesimi e servizi newborn. Luca Germano racconta i tuoi momenti con ascolto e attenzione alle emozioni.",
+  alternates: { canonical: "/" },
+};
 export default function Home() {
   const hero = getHeroPhotos();
   const covers = getCategoryCovers().filter((c) => c.cover);
@@ -26,24 +36,25 @@ export default function Home() {
           <Reveal className="md:col-span-8">
             <p className="eyebrow mb-8 text-muted-foreground">Fotografo · {site.location}</p>
             <h2 className="text-4xl font-light leading-[1.08] md:text-6xl lg:text-7xl">
-              Fotografare significa catturare l&apos;essenza di un momento.{" "}
-              <span className="italic text-muted-foreground">Posso farlo per i tuoi.</span>
+              Ci sono momenti che vorresti rivivere.{" "}
+              <span className="italic text-muted-foreground">Io li racconto attraverso le fotografie.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15} className="self-end md:col-span-4">
             <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-              Reportage di matrimonio, newborn e maternità, ritratti ed eventi. Immagini sincere e
-              luce naturale, per raccontare le vostre storie con discrezione e cura.
+              Sono Luca Germano, fotografo a Fano. Un abbraccio, un’attesa, un sorriso senza preavviso: racconto matrimoni, famiglie e nuove vite con ascolto e attenzione ai dettagli, per custodire ciò che avete vissuto.
             </p>
           </Reveal>
         </div>
+        <SectionContactCta title="Che cosa vorresti ricordare?" text="Raccontami la tua occasione: partiamo dalle persone e da ciò che conta per te." label="Parliamone insieme" />
       </section>
 
+      <StoryPaths />
       {/* Category index */}
       <section aria-labelledby="lavori" className="mx-auto w-full max-w-[1600px] px-5 pb-28 md:px-10 md:pb-44">
         <Reveal className="mb-14 flex items-end justify-between gap-6 border-b border-border/60 pb-6 md:mb-20">
           <h2 id="lavori" className="text-3xl font-light md:text-5xl">
-            I miei <span className="italic">lavori</span>
+            Le vostre <span className="italic">storie</span>
           </h2>
           <Link href="/portfolio" className="eyebrow inline-flex items-center gap-2 opacity-70 transition-opacity hover:opacity-100">
             Tutto il portfolio <ArrowUpRight className="size-3.5" strokeWidth={1.5} />
@@ -63,7 +74,7 @@ export default function Home() {
                     placeholder="blur"
                     blurDataURL={c.cover!.blurDataURL}
                     sizes="(min-width: 768px) 58vw, 100vw"
-                    className="h-auto w-full transition-transform duration-[1.4s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                    className="h-auto w-full transition-transform duration-[1.4s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] motion-reduce:transform-none motion-reduce:transition-none"
                   />
                 </div>
                 <div className="mt-5 flex items-baseline justify-between gap-4">
@@ -75,6 +86,7 @@ export default function Home() {
             </Reveal>
           ))}
         </ul>
+        <SectionContactCta title="Ti immagini dentro una storia così?" label="Raccontami la tua storia" />
       </section>
 
       {/* About teaser */}
@@ -92,21 +104,21 @@ export default function Home() {
           <Reveal delay={0.15} className="md:col-span-6 md:col-start-7">
             <p className="eyebrow mb-6 text-muted-foreground">Chi sono</p>
             <blockquote className="font-serif text-3xl font-light leading-snug md:text-5xl">
-              <span className="italic">&ldquo;</span>Non cerco la foto perfetta: cerco quella vera, che tra vent&apos;anni vi farà
-              ancora emozionare.<span className="italic">&rdquo;</span>
+              <span className="italic">&ldquo;</span>Fotografare significa catturare l’essenza di un momento, per riuscire a conservarlo e poterlo rivivere per sempre.<span className="italic">&rdquo;</span>
             </blockquote>
             <p className="mt-8 max-w-md leading-relaxed text-muted-foreground">
-              Sono Luca, fotografo a Fano. Racconto matrimoni, primi giorni di vita e momenti di famiglia
-              con uno stile spontaneo e discreto.
+              Lavoravo in un salone di parrucchieri quando acquistai la mia prima compatta. Mettevo da parte i soldi per corsi e attrezzatura: da quella curiosità è nato il mio modo di guardare le persone, prima attraverso gli specchi, poi attraverso un obiettivo.
             </p>
             <Button asChild variant="outline" className="mt-10">
-              <Link href="/chi-sono">Scopri di più</Link>
+              <Link href="/chi-sono">Da dove comincia la mia storia</Link>
             </Button>
           </Reveal>
         </div>
       </section>
 
       <ReviewsSection />
+      <FaqSection items={generalFaqs} />
+      <StoryInvitation />
     </>
   );
 }

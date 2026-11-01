@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+import { SectionContactCta } from "@/components/contact/section-contact-cta";
+import { FaqSection } from "@/components/editorial/faq-section";
+import { StoryPaths } from "@/components/editorial/story-paths";
+import { generalFaqs } from "@/data/editorial";
 import { Reveal } from "@/components/motion/reveal";
-import { ShadowCast, StudioLight } from "@/components/motion/studio-light";
+import { ShadowCast } from "@/components/motion/studio-light";
 import { Button } from "@/components/ui/button";
+import { getPhotos } from "@/lib/portfolio";
 
 export const metadata: Metadata = {
-  title: "Servizi",
+  title: "Servizi fotografici a Fano",
   description:
     "Servizi fotografici di Luca Germano a Fano: reportage di matrimonio, newborn e maternità in studio, ritratti, battesimi e cerimonie, eventi a tema.",
   alternates: { canonical: "/servizi" },
@@ -58,7 +63,6 @@ export default function ServiziPage() {
     <>
       {/* Lit hero */}
       <section className="relative isolate overflow-hidden">
-        <StudioLight rest={{ x: 28, y: 40 }} />
         <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-28 pt-36 md:px-10 md:pb-40 md:pt-52">
           <Reveal>
             <p className="eyebrow mb-8 text-muted-foreground">Servizi</p>
@@ -95,11 +99,12 @@ export default function ServiziPage() {
                     {s.includes.join("  /  ")}
                   </p>
                   <Link
-                    href={`/portfolio/${s.slug}`}
+                    href={getPhotos(s.slug).length ? `/portfolio/${s.slug}` : "#scrivimi"}
                     className="eyebrow mt-8 inline-flex items-center gap-2 border-b border-current pb-1 transition-opacity hover:opacity-60"
                   >
-                    Guarda i lavori <ArrowUpRight className="size-3.5" strokeWidth={1.5} />
+                    {getPhotos(s.slug).length ? "Guarda i lavori" : "Parliamone insieme"} <ArrowUpRight className="size-3.5" strokeWidth={1.5} />
                   </Link>
+                  {getPhotos(s.slug).length > 0 && <div className="mt-5"><Link href="#scrivimi" className="eyebrow inline-flex items-center gap-2 border-b border-current pb-1">Parliamone insieme <ArrowUpRight aria-hidden="true" className="size-3.5" /></Link></div>}
                 </div>
               </article>
             </Reveal>
@@ -125,18 +130,20 @@ export default function ServiziPage() {
               </Reveal>
             ))}
           </ol>
+          <SectionContactCta title="Ti accompagno dal primo incontro." text="Scrivimi che cosa desideri e cominciamo a organizzare il tuo servizio." label="Organizziamolo insieme" />
         </div>
       </section>
 
+      <StoryPaths />
+      <FaqSection items={generalFaqs} />
       {/* Lit CTA */}
       <section className="relative isolate overflow-hidden border-t border-border/60">
-        <StudioLight rest={{ x: 70, y: 50 }} />
         <Reveal className="relative mx-auto flex w-full max-w-[1600px] flex-col items-start gap-10 px-5 py-28 md:flex-row md:items-end md:justify-between md:px-10 md:py-40">
           <h2 className="max-w-3xl text-4xl font-light leading-tight md:text-6xl">
             Ogni progetto è diverso: <span className="italic">parliamone.</span>
           </h2>
           <Button asChild size="lg">
-            <Link href="/contatti">Richiedi un preventivo</Link>
+            <Link href="#scrivimi">Richiedi un preventivo</Link>
           </Button>
         </Reveal>
       </section>

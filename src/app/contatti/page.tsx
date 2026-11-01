@@ -21,7 +21,7 @@ const channels = [
 
 export default function ContattiPage() {
   return (
-    <div className="mx-auto w-full max-w-[1600px] px-5 pb-24 pt-32 md:px-10 md:pb-36 md:pt-44">
+    <div id="scrivimi" className="mx-auto w-full max-w-[1600px] scroll-mt-24 px-5 pb-24 pt-32 md:px-10 md:pb-36 md:pt-44">
       <div className="grid gap-16 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <Reveal>
@@ -33,7 +33,7 @@ export default function ContattiPage() {
             </h1>
             <p className="mt-8 max-w-sm text-lg leading-relaxed text-muted-foreground">
               Che sia un matrimonio, l&apos;arrivo di un bambino o un evento speciale, scrivimi: ti
-              risponderò entro 48 ore con disponibilità e proposte.
+              risponderò per parlare di disponibilità e proposta.
             </p>
           </Reveal>
 
@@ -56,7 +56,10 @@ export default function ContattiPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-sm text-muted-foreground">Studio a {site.location}</p>
+            <address className="mt-8 not-italic text-sm leading-relaxed text-muted-foreground">
+              <p>{site.title}</p><p>{site.address.full}</p>
+              <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block border-b border-current pb-1">Indicazioni su Google Maps</a>
+            </address>
           </Reveal>
         </div>
 

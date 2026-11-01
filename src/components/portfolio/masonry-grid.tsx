@@ -46,7 +46,7 @@ export function MasonryGrid({ photos, showCategory = false }: Props) {
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 loading={i < 3 ? "eager" : "lazy"}
                 fetchPriority={i < 3 ? "high" : "auto"}
-                className="h-auto w-full transition-[transform,filter] duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025] group-hover:brightness-[0.92]"
+                className="h-auto w-full transition-[transform,filter] duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025] group-hover:brightness-[0.92] motion-reduce:transform-none motion-reduce:transition-none"
               />
             </button>
             {showCategory && (

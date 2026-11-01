@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { Dialog } from "radix-ui";
-import { AnimatePresence, motion, type PanInfo } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, type PanInfo } from "framer-motion";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 
 import type { Photo } from "@/lib/portfolio";
@@ -19,6 +19,7 @@ type Props = {
 const SWIPE_THRESHOLD = 80;
 
 export function ImageModal({ photos, index, onIndexChange, onClose }: Props) {
+  const reduce = useReducedMotion();
   const open = index !== null;
   const [direction, setDirection] = useState(0);
   const count = photos.length;
@@ -64,7 +65,7 @@ export function ImageModal({ photos, index, onIndexChange, onClose }: Props) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.35 }}
+                transition={{ duration: reduce ? 0 : 0.35 }}
               />
             </Dialog.Overlay>
 
@@ -96,14 +97,14 @@ export function ImageModal({ photos, index, onIndexChange, onClose }: Props) {
                     key={photo.id}
                     custom={direction}
                     variants={{
-                      enter: (d: number) => ({ opacity: 0, x: d * 60 }),
+                      enter: (d: number) => ({ opacity: 0, x: reduce ? 0 : d * 60 }),
                       center: { opacity: 1, x: 0 },
-                      exit: (d: number) => ({ opacity: 0, x: d * -60 }),
+                      exit: (d: number) => ({ opacity: 0, x: reduce ? 0 : d * -60 }),
                     }}
                     initial="enter"
                     animate="center"
                     exit="exit"
-                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: reduce ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
                     drag={count > 1 ? "x" : false}
                     dragConstraints={{ left: 0, right: 0 }}
                     dragElastic={0.25}

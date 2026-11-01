@@ -84,11 +84,16 @@ export function categoryLabel(slug: string) {
 }
 
 /** Landscape photos for the full-bleed hero, featured first, mixed across categories. */
-export function getHeroPhotos(limit = 5): Photo[] {
+export function getHeroPhotos(limit = 10): Photo[] {
   return getPhotos()
     .filter((p) => p.width > p.height)
     .sort((a, b) => Number(b.featured) - Number(a.featured))
     .slice(0, limit);
+}
+
+/** Only categories with real photos are offered as gallery filters. */
+export function getAvailableCategories() {
+  return categories.filter((category) => getPhotos(category.slug).length > 0);
 }
 
 /** One representative photo per category, for the home page category index. */

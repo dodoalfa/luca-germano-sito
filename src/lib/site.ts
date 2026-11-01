@@ -8,9 +8,22 @@ export const site = {
   url: "https://www.lucagermano.it",
   locale: "it_IT",
   location: "Fano (PU), Marche",
+  address: {
+    street: "Via Indipendenza 47",
+    postalCode: "61032",
+    city: "Fano",
+    region: "PU",
+    full: "Via Indipendenza 47, 61032 Fano (PU)",
+  },
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Luca%20Germano%20Fotografo%20Via%20Indipendenza%2047%20Fano",
   email: "info@lucagermano.it",
-  phone: "+39 338 64 92 379",
+  phone: "+39 338 649 2379",
   phoneHref: "tel:+393386492379",
+  // Activate only after Luca has reviewed the site and his Formspree endpoint is configured.
+  contactForm: {
+    enabled: false as boolean,
+    provider: "formspree",
+  },
   social: {
     instagram: "https://www.instagram.com/lucagermanofotografo",
     facebook: "https://www.facebook.com/lucagermanofotografo",
