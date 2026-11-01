@@ -3,6 +3,7 @@ import { Geist, Fraunces } from "next/font/google";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/layout/site-header";
+import { getRatingSummary } from "@/lib/reviews";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -76,7 +77,8 @@ const jsonLd = {
   sameAs: [site.social.instagram, site.social.facebook],
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const rating = await getRatingSummary();
   return (
     <html
       lang="it"
@@ -91,7 +93,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           >
             Vai al contenuto
           </a>
-          <SiteHeader />
+          <SiteHeader rating={rating} />
           <main id="contenuto" className="flex flex-1 flex-col">
             {children}
           </main>

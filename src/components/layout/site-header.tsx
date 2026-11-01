@@ -9,8 +9,10 @@ import { navigation, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
+import { GoogleRating } from "@/components/reviews/google-rating";
+import type { RatingSummary } from "@/lib/reviews";
 
-export function SiteHeader() {
+export function SiteHeader({ rating }: { rating?: RatingSummary | null }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -92,6 +94,7 @@ export function SiteHeader() {
 
         {/* Right: utilities */}
         <div className="col-start-3 flex items-center justify-end gap-1 md:gap-4">
+          {rating ? <GoogleRating {...rating} className="mr-1 md:mr-0" /> : null}
           <a
             href={site.social.instagram}
             target="_blank"
