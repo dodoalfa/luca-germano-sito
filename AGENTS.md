@@ -41,3 +41,4 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 | 2026-11-01 | Codex | Pubblicazione anteprima Cloudflare | Pubblicati le cinque fotografie nei servizi e gli spazi compatti tra le sezioni. Compilazione riuscita; verificati online pagina, cinque immagini e home. Invio moduli ancora disattivato e anteprima non indicizzabile. |
 
 | 2026-11-01 | Codex | wrangler.preview.jsonc; AGENTS.md; README.md | Corretto il Worker di destinazione in luca-germano-portfolio, confermato dal link utente. Pubblicate e verificate online cinque foto dei servizi e spaziatura; modulo ancora inattivo. |
+| 2026-11-01 | Codex | src/app/robots.ts; src/app/sitemap.ts | Risolti i conflitti del merge: conservati host e sitemap canonici, incluse entrambe le landing ed escluse le categorie senza foto. Anteprima protetta e modulo inattivo mantenuti. Merge da completare a cura utente. |
